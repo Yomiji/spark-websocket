@@ -1,0 +1,12 @@
+syntax="proto3";
+package grouple;
+
+option java_package = "com.kodesport";
+option java_outer_classname = "ChatMessage";
+
+message Message {
+    string msg = 1;
+    string user = 2;
+    string timestamp = 3;
+    repeated string userlist = 4;
+}

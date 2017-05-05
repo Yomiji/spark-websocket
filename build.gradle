@@ -1,0 +1,49 @@
+plugins {
+    id "com.google.protobuf" version "0.8.1"
+}
+
+group 'com.kodesport'
+version '0.1'
+
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile (
+            'org.codehaus.groovy:groovy-all:2.4.7',
+            'com.sparkjava:spark-core:2.5.5',
+            'org.slf4j:slf4j-simple:1.7.25',
+            'com.google.protobuf:protobuf-java:3.0.0',
+    )
+    testCompile (
+            'junit:junit:4.12',
+            'org.spockframework:spock-core:1.0-groovy-2.4'
+    )
+}
+
+/**
+ * Protobuf configuration
+ */
+protobuf {
+    generatedFilesBaseDir = "$projectDir/gen"
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.0.0'
+    }
+}
+
+clean {
+    delete protobuf.generatedFilesBaseDir
+}
+
+idea {
+    module {
+        sourceDirs += file("${protobuf.generatedFilesBaseDir}/main/java")
+    }
+}
